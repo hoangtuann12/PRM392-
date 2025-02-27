@@ -37,6 +37,7 @@ public class SecurityConfig {
                     author.requestMatchers("/Auth/**").permitAll(); // Mở quyền Auth
                     author.requestMatchers("/api-users/**").permitAll();
 //                    author.requestMatchers(HttpMethod.GET,"/api-users/**").hasRole("ADMIN");
+                    author.requestMatchers("/products/**").hasRole("ADMIN");
 
                     author.anyRequest().authenticated();
                 })

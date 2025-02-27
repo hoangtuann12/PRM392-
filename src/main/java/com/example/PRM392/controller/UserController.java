@@ -38,4 +38,17 @@ public class UserController {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);  // Trả về lỗi 404 nếu người dùng không tồn tại
         }
     }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Object> updateUser(
+            @PathVariable int id,
+            @RequestBody User user) {
+        try {
+            User updatedUser = userService.updateUser(id, user.getEmail(), user.getUsername(), user.getFullname(),
+                    user.getPhone(), user.getAvatar(), user.isEnabled());
+            return new ResponseEntity<>(updatedUser, HttpStatus.OK); // Trả về thông tin người dùng cập nhật với mã 200
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST); // Trả về lỗi 400 nếu có vấn đề
+        }
+    }
 }
