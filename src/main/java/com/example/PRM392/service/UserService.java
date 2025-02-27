@@ -58,4 +58,30 @@ public class UserService {
             throw new IllegalArgumentException("User with ID " + id + " not found");
         }
     }
+
+    public User updateUser(int id, String email, String username, String fullname, String phone, String avatar, boolean enabled) {
+        // Tìm người dùng trong cơ sở dữ liệu
+        User existingUser = accountRepository.findById(id);
+        if (existingUser == null) {
+            throw new IllegalArgumentException("User with ID " + id + " not found");
+        }
+
+        // Kiểm tra nếu email mới đã tồn tại ở người dùng khác
+        Optional<User> userByEmail = Optional.ofNullable(accountRepository.findByEmail(email));
+        if (userByEmail.isPresent() && !userByEmail.get().getId().equals(id)) {
+            throw new IllegalArgumentException("Email already exists");
+        }
+
+        // Cập nhật thông tin người dùng
+        existingUser.setEmail(email);
+        existingUser.setUsername(username);
+        existingUser.setFullname(fullname);
+        existingUser.setPhone(phone);
+        existingUser.setAvatar(avatar);
+        existingUser.setEnabled(enabled);
+
+        // Lưu thay đổi vào cơ sở dữ liệu
+        return accountRepository.save(existingUser);
+    }
+
 }
