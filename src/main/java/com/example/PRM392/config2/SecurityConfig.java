@@ -34,6 +34,8 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http, CustomFilterSecurity customFilterSecurity) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests( author -> {
+                    author.requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll();
+
                     author.requestMatchers("/Auth/**").permitAll(); // Mở quyền Auth
                     author.requestMatchers("/api-users/**").permitAll();
 //                    author.requestMatchers(HttpMethod.GET,"/api-users/**").hasRole("ADMIN");
