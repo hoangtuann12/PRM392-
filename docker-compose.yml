@@ -1,0 +1,11 @@
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://34.172.183.145:3306/OnlinePetShop
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=12345
+      - JWT_PRIVATE_KEY=CLp/edt3SGCOs7+ByILRGWPR5N168VSi8TG12KBe2/Y=
+
