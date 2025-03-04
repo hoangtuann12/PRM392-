@@ -39,8 +39,8 @@ public class SecurityConfig {
                     author.requestMatchers("/Auth/**").permitAll(); // Mở quyền Auth
                     author.requestMatchers("/api-users/**").permitAll();
 //                    author.requestMatchers(HttpMethod.GET,"/api-users/**").hasRole("ADMIN");
-                    author.requestMatchers("/products/**").hasRole("ADMIN");
-
+//                    author.requestMatchers("/products/**").hasRole("ADMIN");
+                    author.requestMatchers(HttpMethod.GET, "/products/**").permitAll();
                     author.anyRequest().authenticated();
                 })
                 .addFilterBefore(customFilterSecurity, UsernamePasswordAuthenticationFilter.class)
